@@ -1,0 +1,275 @@
+:root{
+  --bg:#eceff3;            /* app background (light grey) */
+  --card:#ffffff;
+  --ink:#1f2023;
+  --muted:#6b7280;
+  --accent:#16a34a;        /* green for Start */
+  --danger:#dc2626;        /* red for Stop */
+  --ok:#059669;
+  --warn:#f59e0b;
+  --blue:#2563eb;          /* button blue for login */
+  --ring: rgba(22,163,74,0.25);
+}
+
+/* ============== Base (dashboard) ============== */
+*{box-sizing:border-box}
+html,body{height:100%}
+
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, 'Helvetica Neue', Arial, sans-serif;
+  color:var(--ink);
+  background:var(--bg);
+}
+
+.page{max-width:980px;margin:24px auto;padding:12px}
+header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.right-head{display:flex;gap:10px;align-items:center}
+h1{font-weight:700;margin:0;font-size:24px;letter-spacing:.3px}
+
+.status-pill{
+  font-size:12px;
+  padding:6px 10px;
+  border-radius:999px;
+  font-weight:700;
+  color:#fff;
+  background:var(--muted);
+  box-shadow:0 1px 2px rgba(0,0,0,.08);
+}
+.status-pill.ok{background:var(--ok)}
+.status-pill.danger{background:var(--danger)}
+
+.date-box{
+  font-size:12px;
+  padding:6px 10px;
+  border-radius:8px;
+  background:#eef2ff;
+  color:#111827;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap:16px;
+}
+.card{
+  background:var(--card);
+  border-radius:16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,.06);
+  padding:16px;
+}
+.card h2{margin:0 0 10px;font-size:16px}
+.card .toolbar{display:flex;gap:8px;align-items:center}
+
+/* Centered status strip */
+.status-grid{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:16px;
+  align-items:center;
+  justify-items:center;
+}
+.center-col{text-align:center}
+.label{font-size:11px;color:var(--muted);margin-bottom:4px}
+.badge{
+  padding:10px 12px;
+  border-radius:10px;
+  font-weight:700;
+  color:#fff;
+  min-width:120px;
+  text-align:center;
+}
+.badge.ok{background:var(--ok)}
+.badge.grey{background:#9ca3af}
+.badge.warn{background:var(--warn)}
+
+/* Red uptime box */
+.timer-box{
+  padding:10px 14px;
+  border-radius:10px;
+  background:#fff;
+  border:1px solid var(--danger);
+  color:var(--danger);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-weight:700;
+}
+.timer-box.danger{border-color:var(--danger);color:var(--danger)}
+
+.meta-row{
+  display:flex;
+  gap:16px;
+  margin-top:12px;
+  color:var(--muted);
+  font-size:12px;
+  justify-content:center;
+}
+
+/* Groups & Inputs */
+.group{
+  margin-bottom:14px;
+  padding:10px 12px;
+  border:1px solid #e5e7eb;
+  border-radius:10px;
+  background:#fafafa;
+}
+.group h3{
+  margin:0 0 6px;
+  font-size:14px;
+  font-weight:600;
+  color:var(--ink);
+}
+label{
+  display:block;
+  margin:8px 0 6px 2px;
+  color:var(--muted);
+  font-size:12px
+}
+input[type="text"]{
+  width:100%;
+  padding:10px 12px;
+  border:1px solid #e5e7eb;
+  border-radius:10px;
+  background:#fff;
+  outline:none;
+  font-size:14px;
+}
+input[type="text"]:focus{
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px var(--ring);
+}
+
+/* Rows & Buttons */
+.row{display:flex;gap:12px;margin-top:12px}
+.buttons{display:flex;justify-content:flex-end}
+button{
+  border:0;
+  padding:10px 16px;
+  font-weight:700;
+  border-radius:12px;
+  cursor:pointer;
+  box-shadow: 0 6px 12px rgba(0,0,0,.07);
+  transition: transform .04s ease, box-shadow .15s ease, opacity .15s ease;
+}
+button:active{ transform: translateY(1px); }
+button.primary{background:var(--accent);color:#fff} /* green when idle */
+button.danger{background:var(--danger);color:#fff}  /* red when live */
+button.ghost{background:#eef2ff;color:#111827}
+button.hidden{display:none}
+button:disabled{opacity:.6;cursor:not-allowed}
+
+.msg{margin-top:12px;font-size:13px;min-height:18px}
+.msg.ok{color:var(--ok)}
+.msg.err{color:var(--danger)}
+
+footer{margin-top:18px;color:var(--muted);text-align:center}
+
+/* ============== Professional LIGHT login (screenshot style) ============== */
+.login-body.login-light{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:100vh;
+  background:#eef2f6; /* very light blue-grey like screenshot */
+}
+
+.login-wrap{width:100%;max-width:420px;padding:16px}
+
+.login-card{
+  background:#fff;
+  border:1px solid #e6e9ee;
+  border-radius:12px;
+  box-shadow:
+    0 20px 40px rgba(0,0,0,.06),
+    0 3px 8px rgba(0,0,0,.04);
+  padding:22px 22px 16px;
+  text-align:center;
+  animation: fadeIn .25s ease;
+}
+
+.login-card .brand{
+  font-size:20px;
+  font-weight:800;
+  letter-spacing:.6px;
+  margin:6px 0 10px;
+  color:#111827;
+  text-transform:uppercase;
+}
+
+.login-card .subtitle{
+  margin:0 0 14px;
+  color:#6b7280;
+  font-weight:600;
+  font-size:14px;
+}
+
+/* Form */
+.login-card label{
+  display:block;
+  text-align:left;
+  font-size:11px;
+  color:#6b7280;
+  margin:10px 0 6px 2px;
+}
+.login-card input[type="text"],
+.login-card input[type="password"]{
+  width:100%;
+  padding:10px 12px;
+  border-radius:6px;
+  border:1px solid #e5e7eb;
+  background:#f7f9fd;         /* light input bg like screenshot */
+  color:#111827;
+  outline:none;
+  transition: border-color .15s ease, box-shadow .15s ease, background .2s ease;
+}
+.login-card input::placeholder{ color:#9ca3af; }
+.login-card input:focus{
+  border-color:#93c5fd;
+  box-shadow: 0 0 0 3px rgba(147,197,253,.5);
+  background:#ffffff;
+}
+
+/* Primary blue button */
+.btn-primary{
+  width:100%;
+  margin-top:12px;
+  padding:10px 12px;
+  border:0;
+  border-radius:6px;
+  font-weight:800;
+  letter-spacing:.2px;
+  color:#fff;
+  background:#2563eb;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 8px 18px rgba(37,99,235,.25);
+  cursor:pointer;
+  transition: transform .05s ease, filter .15s ease, box-shadow .15s ease;
+}
+.btn-primary:hover{ filter:brightness(1.03); box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 10px 22px rgba(37,99,235,.28); }
+.btn-primary:active{ transform: translateY(1px); }
+
+/* Error bubble like a toast */
+.login-card .msg.err{
+  background:#fee2e2;
+  border:1px solid #fecaca;
+  color:#991b1b;
+  border-radius:8px;
+  padding:8px 10px;
+  margin:0 0 8px;
+}
+
+/* Small footer text */
+.login-card .copyright{
+  margin-top:12px;
+  color:#9ca3af;
+  font-size:11px;
+}
+
+/* Anim */
+@keyframes fadeIn {
+  from {opacity:0; transform:translateY(8px);}
+  to {opacity:1; transform:translateY(0);}
+}
+
+/* ============== Responsive ============== */
+@media (max-width: 960px){
+  .grid{grid-template-columns: 1fr}
+}

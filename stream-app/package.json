@@ -1,0 +1,19 @@
+{
+  "name": "decklink-rtmp",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "child_process": "^1.0.2",
+    "dayjs": "^1.11.15",
+    "express": "^4.21.2",
+    "express-session": "^1.18.2",
+    "fs": "^0.0.1-security",
+    "http": "^0.0.1-security",
+    "morgan": "^1.10.1",
+    "path": "^0.12.7",
+    "socket.io": "^4.8.1"
+  }
+}
