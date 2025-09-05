@@ -1,1 +1,17 @@
+                  To run this package follow required dependenancy 
+1.Ubuntu Server 24.04 
+2.DeckLink Mini Recorder HD ( Video Card)
+3.Decklink Driver version "Blackmagic_Desktop_Video_Linux_14.2"
+4.Decklink SDK version "Blackmagic DeckLink SDK 14.2"
+5.ffmpeg version 7.0.1
+6.Nodejs Version  "v22.18.0"
+7.Npm version "10.9.3"
 
+
+                  Installation Guide
+1. Install decklink videocard and driver 
+2. Compile ffmpeg with Decklink SDK      ( while compiling make sure that openssl enabled for rtmps communication )
+3. install Nodejs with version "v22.18.0"
+4. then install npm version with "10.9.3" 
+5. download my decklink-rtmp-encoder package put it on /opt directory
+6. install required npm packages ( follow server.js file)
