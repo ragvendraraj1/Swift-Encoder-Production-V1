@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>SWIFT-ENCODER • Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/public/style.css" />
+</head>
+<body class="login-body">
+  <div class="login-card">
+    <div class="login-inner">
+      <div class="brand">SWIFT-ENCODER</div>
+      <h1 class="login-title">Sign In</h1>
+      <form id="loginForm" class="login-form">
+        <label>Username</label>
+        <input name="username" autocomplete="username" required />
+        <label>Password</label>
+        <input type="password" name="password" autocomplete="current-password" required />
+        <button type="submit" class="btn primary">Login</button>
+        <p id="loginMsg" class="msg"></p>
+      </form>
+      <div class="login-footer">
+        <a href="javascript:void(0)">Forgot password?</a>
+      </div>
+    </div>
+  </div>
+  <script>
+    const form = document.getElementById("loginForm");
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const fd = new FormData(form);
+      const payload = {
+        username: fd.get("username"),
+        password: fd.get("password")
+      };
+      const r = await fetch("/api/login", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(payload)
+      });
+      const msg = document.getElementById("loginMsg");
+      if (r.ok) {
+        location.href = "/";
+      } else {
+        msg.textContent = "Invalid credentials";
+        msg.classList.add("error");
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+{
+  "encoderName": "SWIFT-ENCODER",
+  "protocol": "RTMP",
+  "playMode": "Live",
+  "youtubeEnabled": true,
+  "youtubeServerUrl": "rtmp://a.rtmp.youtube.com/live2",
+  "youtubeStreamKey": "tyb0-g2b4-5wmk-ca7h-e2cg",
+  "facebookEnabled": true,
+  "facebookServerUrl": "rtmps://live-api-s.facebook.com:443/rtmp",
+  "facebookStreamKey": "FB-32494031760241326-0-Ab2vWkO9tQd18kNpG9QKBXFK",
+  "videoCodec": "libx264",
+  "audioCodec": "aac",
+  "decklinkDevice": "DeckLink Mini Recorder HD",
+  "targetUrl": "rtmp://a.rtmp.youtube.com/live2/tyb0-g2b4-5wmk-ca7h-e2cg",
+  "port": "",
+  "ttl": "",
+  "resolution": "1080i50",
+  "vbitrate": "3000k",
+  "autoRestart": true,
+  "adminUsername": "admin",
+  "adminPassword": "admin",
+  "net": [
+    {
+      "interface": "eno1",
+      "mode": "dhcp",
+      "address": "",
+      "gateway": "",
+      "dns": "8.8.8.8,8.8.4.4"
+    }
+  ]
+}

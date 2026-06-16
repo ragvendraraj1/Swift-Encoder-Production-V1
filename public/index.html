@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>SWIFT-ENCODER • Streaming Server</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/public/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="tabs">
+      <button class="tab active">Dashboard</button>
+    </div>
+    <div class="right">
+      <div class="signal">
+        <span id="signalDot" class="dot red"></span>
+        <span id="signalText">NO SIGNAL</span>
+      </div>
+      <a class="btn ghost" href="/logout">Logout</a>
+      <span id="uptime" class="uptime">00:00</span>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="logo">SwiftEncoder</div>
+      <div class="menu">
+        <div class="section">Summary</div>
+        <button class="item" data-view="live">Live Control</button>
+
+        <div class="section">Streaming</div>
+        <button class="item" data-view="url">Media URLs</button>
+        <button class="item" data-view="resolution">Device Settings</button>
+
+        <div class="section">System</div>
+        <button class="item" data-view="network">Networking</button>
+        <button class="item" data-view="device">Device Information</button>
+        <button class="item" data-view="signal">Video Signal</button>
+
+        <div class="section">Admin</div>
+        <button class="item" data-view="admin">Admin Settings</button>
+      </div>
+    </aside>
+
+    <main class="content">
+      <h2>IP Streaming Console</h2>
+
+      <!-- Live Control -->
+      <section class="card" id="view-live">
+        <h3>Live Control</h3>
+        <div class="grid">
+          <div>
+            <label>Status</label>
+            <div id="runStatus" class="pill off">READY</div>
+          </div>
+          <div>
+            <label>Auto-Restart</label>
+            <label class="switch"><input id="autoRestart" type="checkbox" /><span class="slider"></span></label>
+          </div>
+          <div><button class="btn primary" id="startBtn">Start Encoder</button></div>
+          <div><button class="btn" id="stopBtn">Stop Encoder</button></div>
+        </div>
+
+        <div class="grid">
+          <div class="span2">
+            <label>Live Logs</label>
+            <pre id="logs" class="console"></pre>
+            <div class="log-actions"><button class="btn" id="clearLogs">Clear</button><span class="muted">SSE live stream; auto-scroll</span></div>
+            <div style="margin-top:8px;font-size:12px;color:#6b7280">Error log file: <code>/var/log/swift-encoder/ffmpeg-stderr.log</code></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- URL Settings -->
+      <section class="card hidden" id="view-url">
+        <h3>Media URL & Codec Settings</h3>
+        <div class="grid">
+          <div>
+            <label>Protocol</label>
+            <select id="protocol">
+              <option value="RTMP_MULTI">RTMP Multi-Platform</option>
+              <option>RTMP</option>
+              <option>RTMPLive</option>
+              <option>RTMPS</option>
+              <option>HLS</option>
+              <option>HTTP</option>
+              <option>HTTPS</option>
+              <option>UDP</option>
+              <option>RTP</option>
+              <option>SRT</option>
+            </select>
+          </div>
+          <div>
+            <label>Play Mode</label>
+            <select id="playMode"><option>Live</option><option>File</option></select>
+          </div>
+
+          <div class="span2 platform-head">
+            <h4>YouTube Live</h4>
+            <label class="checkline"><input id="youtubeEnabled" type="checkbox" /> Enable YouTube</label>
+          </div>
+          <div class="span2">
+            <label>YouTube Server URL</label>
+            <input id="ytServerUrl" placeholder="rtmp://a.rtmp.youtube.com/live2" />
+          </div>
+          <div class="span2">
+            <label>YouTube Stream Key</label>
+            <input id="ytStreamKey" placeholder="YouTube stream key" />
+          </div>
+
+          <div class="span2 platform-head">
+            <h4>Facebook Live</h4>
+            <label class="checkline"><input id="facebookEnabled" type="checkbox" /> Enable Facebook</label>
+          </div>
+          <div class="span2">
+            <label>Facebook Server URL</label>
+            <input id="fbServerUrl" placeholder="rtmps://live-api-s.facebook.com:443/rtmp" />
+          </div>
+          <div class="span2">
+            <label>Facebook Stream Key</label>
+            <input id="fbStreamKey" placeholder="Facebook stream key" />
+          </div>
+
+          <div>
+            <label>Video Codec</label>
+            <select id="videoCodec">
+              <option value="libx264">libx264 (H.264)</option>
+              <option value="libx265">libx265 (H.265)</option>
+              <option value="libvpx-vp9">libvpx-vp9 (VP9)</option>
+              <option value="libvpx">libvpx (VP8)</option>
+            </select>
+          </div>
+          <div>
+            <label>Audio Codec</label>
+            <select id="audioCodec">
+              <option value="aac">aac</option>
+              <option value="libmp3lame">mp3</option>
+              <option value="libopus">opus</option>
+            </select>
+          </div>
+
+          <div><label>Port</label><input id="port" placeholder="optional (UDP/RTP/SRT)" /></div>
+          <div><label>TTL</label><input id="ttl" placeholder="optional (UDP)" /></div>
+          <div>
+            <label>Video Bitrate</label>
+            <select id="vbitrate">
+              <option value="1000k">1000 kbps</option>
+              <option value="1500k">1500 kbps</option>
+              <option value="2000k">2000 kbps</option>
+              <option value="2500k">2500 kbps</option>
+              <option value="3000k">3000 kbps</option>
+              <option value="4000k">4000 kbps</option>
+              <option value="5000k">5000 kbps</option>
+              <option value="6000k">6000 kbps</option>
+              <option value="8000k">8000 kbps</option>
+              <option value="10000k">10000 kbps</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn primary" id="saveUrl">Apply</button>
+        <span id="saveUrlMsg" class="msg"></span>
+      </section>
+
+      <!-- Device Settings -->
+      <section class="card hidden" id="view-resolution">
+        <h3>Device Settings</h3>
+        <div class="grid">
+          <div>
+            <label>Video Mode</label>
+            <select id="resolution">
+              <option>1080i50</option><option>1080i59.94</option>
+              <option>1080p25</option><option>1080p29.97</option>
+              <option>720p50</option><option>720p59.94</option>
+              <option>625iPAL</option>
+              <option>576i50</option><option>480i59.94</option>
+            </select>
+          </div>
+          <div>
+            <label>DeckLink Card</label>
+            <select id="decklinkDevice">
+              <option value="DeckLink Mini Recorder HD">DeckLink Mini Recorder HD</option>
+              <option value="DeckLink Mini Recorder 4K">DeckLink Mini Recorder 4K</option>
+              <option value="DeckLink SDI 4K">DeckLink SDI 4K</option>
+              <option value="DeckLink Studio 4K">DeckLink Studio 4K</option>
+              <option value="DeckLink Duo 2">DeckLink Duo 2</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn primary" id="saveRes">Save</button>
+        <span id="saveResMsg" class="msg"></span>
+      </section>
+
+      <!-- Networking (single NIC) -->
+      <section class="card hidden" id="view-network">
+        <h3>Networking Settings</h3>
+        <div id="nicList"></div>
+        <div class="notice">Configure a single network interface and click “Apply for Selected NIC”. Requires <code>ALLOW_NET_CHANGES=1</code> and sudoers.</div>
+        <div style="margin-top:8px">
+          <button class="btn primary" id="applySelectedNic">Apply for Selected NIC</button>
+          <span id="applyNetMsg" class="msg"></span>
+        </div>
+      </section>
+
+      <!-- Device Information -->
+      <section class="card hidden" id="view-device">
+        <h3>Device Information</h3>
+        <div class="grid">
+          <div class="span2">
+            <div class="kv" id="authorLine"></div>
+            <div class="kv" id="copyrightLine"></div>
+            <h4>Current Stream Configuration</h4>
+            <pre id="currentCfg" class="console"></pre>
+            <h4>Hardware Configuration</h4>
+            <pre id="hwCfg" class="console"></pre>
+            <h4>DeckLink Devices</h4>
+            <pre id="deviceOut" class="console"></pre>
+          </div>
+        </div>
+        <button class="btn" id="refreshDevice">Refresh</button>
+      </section>
+
+      <!-- Video Signal -->
+      <section class="card hidden" id="view-signal">
+        <h3>Video Signal Information</h3>
+        <div id="signalSummary" class="kv"></div>
+        <pre id="signalRaw" class="console"></pre>
+        <button class="btn" id="refreshSignal">Probe Signal</button>
+      </section>
+
+      <!-- Admin -->
+      <section class="card hidden" id="view-admin">
+        <h3>Admin Settings</h3>
+        <div class="grid">
+          <div>
+            <label>Current Password</label>
+            <input id="currentPassword" type="password" autocomplete="current-password" />
+          </div>
+          <div>
+            <label>New Password</label>
+            <input id="newPassword" type="password" autocomplete="new-password" />
+          </div>
+          <div>
+            <label>Confirm Password</label>
+            <input id="confirmPassword" type="password" autocomplete="new-password" />
+          </div>
+        </div>
+        <button class="btn primary" id="changePasswordBtn">Change Password</button>
+        <span id="changePasswordMsg" class="msg"></span>
+      </section>
+    </main>
+  </div>
+
+  <script src="/public/app.js"></script>
+</body>
+</html>
